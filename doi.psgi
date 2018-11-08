@@ -73,10 +73,10 @@ my $aref2mods = aREF2MODS->new(fixes => [], aref2json => $aref2json);
 Catmandu::Plack::unAPI->new(
     # Get DOI data via RDF Linked Open Data
     query => sub {
-        if ($_[0] !~ qr{^(doi:|https?://dx\.doi\.org/)?10\.\d+/\S+$}) {
+        if ($_[0] !~ qr{^(doi:|https?://(dx\.)?doi\.org/)?10\.\d+/\S+$}) {
             return 'invalid DOI'
         }
-        my $url = "http://dx.doi.org/".$_[0];
+        my $url = "https://doi.org/".$_[0];
         my $rdf = importer('RDF', url => $url)->first;
         $rdf->{_url} = $url if $rdf;
         return $rdf;
